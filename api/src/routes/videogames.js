@@ -45,11 +45,19 @@ videogamesRouter.get('/:idVideogame', async (req, res) => {
 videogamesRouter.post('/', async (req, res) => {
   const newVideogame = req.body
   try {
-    const createdVideogame = await createVideogame(newVideogame)
+    const auxVideogame = await createVideogame(newVideogame)
+    const { id, name, image, rating, genres } = await getVideogamesById(auxVideogame.videogame.id)
     res.status(200).json({
-      ok: true,
-      message: 'Videogame created successfully!',
-      createdVideogame
+      response: auxVideogame.created
+        ? {
+          ok: true,
+          message: 'Videogame created successfully!',
+          createdVideogame: { id, name, image, rating, genres }
+        }
+        : {
+          ok: false,
+          message: 'Videogame alredy exists'
+        }
     })
   } catch (error) {
     res.status(400).json({

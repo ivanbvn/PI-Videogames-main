@@ -23,7 +23,7 @@ const { conn } = require('./src/db.js');
 const { PORT } = process.env
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ alter: true }).then(() => {
   console.log('DB Connected')
   getAllGenres()
   server.listen(PORT, () => {

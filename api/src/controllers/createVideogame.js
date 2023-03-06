@@ -2,16 +2,18 @@ const { Videogame } = require('../db')
 
 const createVideogame = async (newVideogame) => {
   try {
-    const createdVideogame = await Videogame.create({
-      name: newVideogame.name,
-      description: newVideogame.description,
-      platforms: newVideogame.platforms,
-      image: newVideogame.image,
-      released: newVideogame.released,
-      rating: newVideogame.rating,
+    const [videogame, created] = await Videogame.findOrCreate({
+      where: {
+        name: newVideogame.name,
+        description: newVideogame.description,
+        platforms: newVideogame.platforms,
+        image: newVideogame.image,
+        released: newVideogame.released,
+        rating: newVideogame.rating,
+      }
     })
-    await createdVideogame.addGenres(newVideogame.genres)
-    return createdVideogame
+    if (created) await videogame.addGenres(newVideogame.genres)
+    return { videogame, created }
   } catch (error) {
     throw Error(error.message)
   }

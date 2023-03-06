@@ -29,7 +29,7 @@ const searchOnApi = async (id) => {
       apiVideogame = {
         id: data.id,
         name: data.name,
-        description: data.description,
+        description: data.description_raw,
         platforms: data.platforms.map(r => r.platform.name),
         image: data.background_image ? data.background_image : 'https://sm.ign.com/ign_es/screenshot/default/60225-metal-gear-solid-3-subsistence-playstation-2_umwf.jpg',
         released: data.released,
@@ -42,7 +42,19 @@ const searchOnApi = async (id) => {
 
 const searchOnDb = async (id) => {
   try {
-    const dbVideogame = await Videogame.findByPk(id)
+    const auxVideogame = await Videogame.findByPk(id, {
+      include: Genre
+    })
+    const dbVideogame = {
+      id: auxVideogame.id,
+      name: auxVideogame.name,
+      description: auxVideogame.description,
+      platforms: auxVideogame.platforms,
+      image: auxVideogame.image,
+      released: auxVideogame.released,
+      rating: auxVideogame.rating,
+      genres: auxVideogame.genres.map(genre => genre.name),
+    }
     return dbVideogame
   } catch (error) {
     throw Error(error.message)
