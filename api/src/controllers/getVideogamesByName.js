@@ -1,4 +1,3 @@
-const { default: axios } = require('axios')
 const { Videogame, Genre } = require('../db')
 const { Op } = require('sequelize')
 const { APIKEY } = process.env
@@ -43,7 +42,7 @@ const getDbVideogamesByName = async (name) => {
 const getApiVideogamesByName = async (name) => {
   try {
     let apiVideogames
-    axios.get(`https://api.rawg.io/api/games?search=${name}&key=${APIKEY}&page_size=15`)
+    await fetch(`https://api.rawg.io/api/games?search=${name}&key=${APIKEY}&page_size=15`)
       .then(res => res.json())
       .then(({ results }) => {
         apiVideogames = results.map(vg => {

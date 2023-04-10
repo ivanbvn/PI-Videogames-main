@@ -1,4 +1,3 @@
-const axios = require('axios')
 const { Genre } = require('../db')
 const { APIKEY } = process.env
 
@@ -8,7 +7,7 @@ const getAllGenres = async () => {
 
     if (!dbGenres.length) {
       let genres
-      axios.get(`https://api.rawg.io/api/genres?key=${APIKEY}`)
+      await fetch(`https://api.rawg.io/api/genres?key=${APIKEY}`)
         .then(res => res.json())
         .then(async ({ results }) => {
           if (!results) throw Error('API request error')
