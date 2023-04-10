@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 const { Videogame, Genre } = require('../db')
 const { Op } = require('sequelize')
 const { APIKEY } = process.env

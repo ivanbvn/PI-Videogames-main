@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 const { Videogame, Genre } = require('../db')
 const { APIKEY } = process.env
 const { validate } = require('uuid')

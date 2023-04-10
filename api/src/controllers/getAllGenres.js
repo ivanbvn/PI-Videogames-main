@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 const { Genre } = require('../db')
 const { APIKEY } = process.env
 
