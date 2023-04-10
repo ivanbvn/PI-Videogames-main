@@ -38,7 +38,7 @@ const getAllApiVideogames = async (url = `https://api.rawg.io/api/games?key=${AP
   try {
     let auxVideogames
     let nextPage
-    await fetch(url)
+    fetch(url)
       .then(response => response.json())
       .then(({ results, next }) => {
         nextPage = next

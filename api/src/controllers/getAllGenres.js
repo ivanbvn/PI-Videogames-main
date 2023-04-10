@@ -8,7 +8,7 @@ const getAllGenres = async () => {
 
     if (!dbGenres.length) {
       let genres
-      await fetch(`https://api.rawg.io/api/genres?key=${APIKEY}`)
+      fetch(`https://api.rawg.io/api/genres?key=${APIKEY}`)
         .then(res => res.json())
         .then(async ({ results }) => {
           if (!results) throw Error('API request error')

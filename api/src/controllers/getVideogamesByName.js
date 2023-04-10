@@ -43,7 +43,7 @@ const getDbVideogamesByName = async (name) => {
 const getApiVideogamesByName = async (name) => {
   try {
     let apiVideogames
-    await fetch(`https://api.rawg.io/api/games?search=${name}&key=${APIKEY}&page_size=15`)
+    fetch(`https://api.rawg.io/api/games?search=${name}&key=${APIKEY}&page_size=15`)
       .then(res => res.json())
       .then(({ results }) => {
         apiVideogames = results.map(vg => {
