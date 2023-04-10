@@ -1,3 +1,4 @@
+const { default: axios } = require('axios')
 const { Videogame, Genre } = require('../db')
 const { APIKEY } = process.env
 
@@ -37,7 +38,7 @@ const getAllApiVideogames = async (url = `https://api.rawg.io/api/games?key=${AP
   try {
     let auxVideogames
     let nextPage
-    await fetch(url)
+    axios.get(url)
       .then(response => response.json())
       .then(({ results, next }) => {
         nextPage = next
